@@ -1,6 +1,8 @@
 # main.py
 import simpy
 import random
+import matplotlib.pyplot as plt
+import os
 
 # Setup & Skeleton
 # Create results folder if it doesn't exist (in same directory)
