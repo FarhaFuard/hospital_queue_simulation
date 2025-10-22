@@ -1,19 +1,31 @@
+# main.py
 import simpy
+import random
 
-# Simulation parameters
-NUM_DOCTORS = 2
-SIM_TIME = 100
+# Setup & Skeleton
+# Create results folder if it doesn't exist (in same directory)
+if not os.path.exists("./results"):
+    os.makedirs("./results")
 
-# Placeholder for patient process
-def patient(env, name):
-    pass
+# Constants & Seed
+RANDOM_SEED = 42    # For reproducibility
+SIM_TIME = 100    # Total simulation time in minutes
+TREATMENT_TIME = 10    # Avg treatment time for a patient (minutes)
 
+# Patient Function
+wait_times = []  # List to track wait times
 
-# Placeholder for hospital setup
-def setup(env):
-    pass
+def patient(env, name, doctors):
+    #Simulate a patient arriving, waiting, being treated, and leaving.
+    arrival_time = env.now
+    print(f"{name} arrives at {arrival_time:.2f} minutes")
 
-# Run simulation
-env = simpy.Environment()
-env.process(setup(env))
-env.run(until=SIM_TIME)
+    with doctors.request() as request:
+        yield request
+        wait = env.now - arrival_time
+        wait_times.append(wait)
+        print(f"{name} starts treatment at {env.now:.2f} after waiting {wait:.2f} minutes")
+        # Treatment duration (exponential)
+        yield env.timeout(random.expovariate(1.0 / TREATMENT_TIME))
+        print(f"{name} leaves at {env.now:.2f} minutes")
+
