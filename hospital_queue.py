@@ -18,7 +18,7 @@ TREATMENT_TIME = 10    # Avg treatment time for a patient (minutes)
 wait_times = []  # List to track wait times
 
 def patient(env, name, doctors):
-    #Simulate a patient arriving, waiting, being treated, and leaving.
+    #Simulate a patient arriving, waiting, being treated, and leaving
     arrival_time = env.now
     print(f"{name} arrives at {arrival_time:.2f} minutes")
 
@@ -31,8 +31,9 @@ def patient(env, name, doctors):
         yield env.timeout(random.expovariate(1.0 / TREATMENT_TIME))
         print(f"{name} leaves at {env.now:.2f} minutes")
 
-
+#Hospital setup
 def setup(env, num_doctors=2, interval_patients=5):
+    #Generate patients arriving at the hospital and assign doctors
     doctors = simpy.Resource(env, num_doctors)
     i = 0
     while True:
