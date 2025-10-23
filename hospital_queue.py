@@ -31,3 +31,11 @@ def patient(env, name, doctors):
         yield env.timeout(random.expovariate(1.0 / TREATMENT_TIME))
         print(f"{name} leaves at {env.now:.2f} minutes")
 
+
+def setup(env, num_doctors=2, interval_patients=5):
+    doctors = simpy.Resource(env, num_doctors)
+    i = 0
+    while True:
+        i += 1
+        env.process(patient(env, f"Patient {i}", doctors))
+        yield env.timeout(random.expovariate(1.0 / interval_patients))
