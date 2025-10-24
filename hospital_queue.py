@@ -21,17 +21,17 @@ throughput = []   # Track number of patients treated
 
 # Patient process
 def patient(env, name, doctors, treatment_time=TREATMENT_TIME):
-    #Patient arrives, waits if necessary, gets treatment, leaves.
+    #Patient arrives, waits, gets treatment, leaves
     arrival_time = env.now
 
     with doctors.request() as request:
         yield request
         wait = env.now - arrival_time
         wait_times.append(wait)
-        
-        # Treatment duration 
-        yield env.timeout(random.expovariate(1.0 / TREATMENT_TIME))
-        
+
+        # Treatment duration
+        yield env.timeout(random.expovariate(1.0 / treatment_time))
+
         # Update throughput
         throughput.append(1)
 
