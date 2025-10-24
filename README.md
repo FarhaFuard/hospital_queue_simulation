@@ -1,10 +1,10 @@
 # Hospital Queue Simulation
-# Author: Farha Fuard
+Author: Farha Fuard
 
-#  Purpose:
+Purpose:
 To model and analyze hospital queue performance under different load conditions using discrete-event simulation.
 
-#  Requirements:
+Requirements:
 Install the following Python libraries before running the code:
          pip install simpy matplotlib
 
@@ -21,7 +21,7 @@ Install the following Python libraries before running the code:
         Comparative bar charts for average wait time and throughput
         A text output of scenario results in the console
 
-#  Scenarios Simulated:
+Scenarios Simulated:
 
 1. Low Load
 
